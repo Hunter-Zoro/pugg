@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.pugg.mapper.UserThingMapper">
+    
+    <resultMap type="UserThing" id="UserThingResult">
+        <result property="id"    column="id"    />
+        <result property="thingId"    column="thing_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="time"    column="time"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectUserThingVo">
+        select t.id, t.thing_id as "thingId", t.user_id as "userId", t.time, t.status ,user.user_name as "userName",thing.thing_name as "thingName"
+        from user_thing t
+        left join sys_user user on user.user_id = t.user_id
+        left join thing on thing.id = t.thing_id
+    </sql>
+
+    <select id="selectUserThingList" parameterType="UserThing" resultType="java.util.HashMap">
+        <include refid="selectUserThingVo"/>
+        <where>  
+            <if test="thingId != null "> and thing_id = #{thingId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectUserThingById" parameterType="Long" resultMap="UserThingResult">
+        <include refid="selectUserThingVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertUserThing" parameterType="UserThing">
+        insert into user_thing
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="thingId != null">thing_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="time != null">time,</if>
+            <if test="status != null">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="thingId != null">#{thingId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="time != null">#{time},</if>
+            <if test="status != null">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUserThing" parameterType="UserThing">
+        update user_thing
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="thingId != null">thing_id = #{thingId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="status != null">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserThingById" parameterType="Long">
+        delete from user_thing where id = #{id}
+    </delete>
+
+    <delete id="deleteUserThingByIds" parameterType="String">
+        delete from user_thing where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
