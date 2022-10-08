@@ -10,16 +10,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="userId"    column="user_id"    />
         <result property="time"    column="time"    />
         <result property="status"    column="status"    />
+        <result property="thingName"    column="thing_name"    />
+        <result property="userName"    column="user_name"    />
     </resultMap>
 
-    <sql id="selectUserThingVo">
+   <!-- <sql id="selectUserThingVo">
         select t.id, t.thing_id as "thingId", t.user_id as "userId", t.time, t.status ,user.user_name as "userName",thing.thing_name as "thingName"
         from user_thing t
         left join sys_user user on user.user_id = t.user_id
         left join thing on thing.id = t.thing_id
     </sql>
+-->
+    <sql id="selectUserThingVo">
+        select t.id, t.thing_id , t.user_id , t.time, t.status ,user.user_name ,thing.thing_name
+        from user_thing t
+                 left join sys_user user on user.user_id = t.user_id
+            left join thing on thing.id = t.thing_id
+    </sql>
 
-    <select id="selectUserThingList" parameterType="UserThing" resultType="java.util.HashMap">
+    <select id="selectUserThingList" parameterType="UserThing" resultMap="UserThingResult">
         <include refid="selectUserThingVo"/>
         <where>  
             <if test="thingId != null "> and thing_id = #{thingId}</if>

@@ -5,29 +5,49 @@
 </head>
 <body class="gray-bg">
      <div class="container-div">
-     	<div class="btn-group-sm" id="toolbar" role="group">
-	        <a class="btn btn-success" onclick="$.operate.add()">
-	            <i class="fa fa-plus"></i> 新增
-	        </a>
-	        <a class="btn btn-primary single disabled" onclick="$.operate.edit()">
-	            <i class="fa fa-edit"></i> 修改
-	        </a>
-	        <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()">
-	            <i class="fa fa-remove"></i> 删除
-	        </a>
-	        <a class="btn btn-info" onclick="$.table.importExcel()">
-	            <i class="fa fa-upload"></i> 导入
-	        </a>
-	        <a class="btn btn-warning" onclick="$.table.exportExcel()">
-	            <i class="fa fa-download"></i> 导出
-	        </a>
+		 <div class="row">
+			 <div class="col-sm-12 search-collapse">
+				 <form id="user-form">
+					 <input type="hidden" id="deptId" name="deptId">
+					 <input type="hidden" id="parentId" name="parentId">
+					 <div class="select-list">
+						 <ul>
+							 <li>
+								 物品名称：<input type="text" name="thingName"/>
+							 </li>
+							 <li>
+								 对应区块链：<input type="text" name="thingBlock"/>
+							 </li>
+							 <li>
+								 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								 <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							 </li>
+						 </ul>
+					 </div>
+				 </form>
+			 </div>
+			 <div class="btn-group-sm" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()">
+					<i class="fa fa-plus"></i> 新增
+				</a>
+				<a class="btn btn-primary single disabled" onclick="$.operate.edit()">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-info" onclick="$.table.importExcel()">
+					<i class="fa fa-upload"></i> 导入
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()">
+					<i class="fa fa-download"></i> 导出
+				</a>
 
-        </div>
-		<div class="row">
+			</div>
 			<div class="col-sm-12 select-table table-striped">
 				<table id="bootstrap-table"></table>
 			</div>
-		</div>
+		 </div>
 	</div>
     <div th:include="include :: footer"></div>
     <script th:inline="javascript">

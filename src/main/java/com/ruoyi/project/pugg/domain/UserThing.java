@@ -36,6 +36,26 @@ public class UserThing extends BaseEntity
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private String status;
 
+    private String userName;
+
+    private String thingName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getThingName() {
+        return thingName;
+    }
+
+    public void setThingName(String thingName) {
+        this.thingName = thingName;
+    }
+
     public void setId(Long id)
     {
         this.id = id;
