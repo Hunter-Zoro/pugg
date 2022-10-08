@@ -1,8 +1,3 @@
-INSERT INTO `thing` VALUES ('1', '商品1', 'AKSJHD123987', null);
-INSERT INTO `thing` VALUES ('2', '商品2', 'ASD12312JKASD3', null);
-INSERT INTO `thing` VALUES ('3', '商品3', 'LKJLZKXJKC123LL213', null);
-
-
 
 INSERT INTO `transaction` VALUES ('1', '1', '128', '2022-09-14 15:44:49', '1');
 

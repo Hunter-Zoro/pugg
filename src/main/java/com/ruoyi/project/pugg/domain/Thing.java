@@ -26,6 +26,26 @@ public class Thing extends BaseEntity
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private String thingBlock;
 
+    private String thingImg;
+
+    private String thingPrice;
+
+    public String getThingImg() {
+        return thingImg;
+    }
+
+    public void setThingImg(String thingImg) {
+        this.thingImg = thingImg;
+    }
+
+    public String getThingPrice() {
+        return thingPrice;
+    }
+
+    public void setThingPrice(String thingPrice) {
+        this.thingPrice = thingPrice;
+    }
+
     public void setId(Long id)
     {
         this.id = id;

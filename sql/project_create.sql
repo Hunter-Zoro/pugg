@@ -18,8 +18,9 @@ CREATE TABLE `thing` (
                          `thing_name` varchar(255) DEFAULT NULL,
                          `thing_block` varchar(255) DEFAULT NULL,
                          `thing_img` varchar(255) DEFAULT NULL,
+                         `thing_price` decimal(10,0) DEFAULT NULL,
                          PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 
 -- 商品用户表

@@ -31,7 +31,7 @@ import com.ruoyi.framework.web.page.TableDataInfo;
 @RequestMapping("/pugg/userThing")
 public class UserThingController extends BaseController
 {
-    private String prefix = "pugg";
+    private String prefix = "pugg/userThing";
 
     @Autowired
     private IUserThingService userThingService;

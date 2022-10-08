@@ -1,49 +1,45 @@
 package com.ruoyi.project.pugg.controller;
 
-import java.util.List;
-import java.util.Map;
-
+import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.framework.aspectj.lang.annotation.Log;
+import com.ruoyi.framework.aspectj.lang.enums.BusinessType;
+import com.ruoyi.framework.web.controller.BaseController;
+import com.ruoyi.framework.web.domain.AjaxResult;
+import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.project.pugg.domain.Thing;
 import com.ruoyi.project.pugg.service.IThingService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.ruoyi.framework.aspectj.lang.annotation.Log;
-import com.ruoyi.framework.aspectj.lang.enums.BusinessType;
-import com.ruoyi.framework.web.controller.BaseController;
-import com.ruoyi.framework.web.domain.AjaxResult;
-import com.ruoyi.common.utils.poi.ExcelUtil;
-import com.ruoyi.framework.web.page.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
- * 【请填写功能名称】Controller
+ * thingController
  * 
  * @author ruoyi
- * @date 2022-09-14
+ * @date 2022-10-08
  */
 @Controller
 @RequestMapping("/pugg/thing")
 public class ThingController extends BaseController
 {
-    private String prefix = "pugg";
+    private String prefix = "pugg/thing";
 
     @Autowired
     private IThingService thingService;
 
+
     @GetMapping()
     public String thing()
     {
-        return prefix + "/thingList";
+        return prefix + "/thing";
     }
 
     /**
-     * 查询【请填写功能名称】列表
+     * 查询thing列表
      */
 
     @PostMapping("/list")
@@ -55,9 +51,22 @@ public class ThingController extends BaseController
         return getDataTable(list);
     }
 
+    /**
+     * 导出thing列表
+     */
+    @RequiresPermissions("system:thing:export")
+    @Log(title = "thing", businessType = BusinessType.EXPORT)
+    @PostMapping("/export")
+    @ResponseBody
+    public AjaxResult export(Thing thing)
+    {
+        List<Thing> list = thingService.selectThingList(thing);
+        ExcelUtil<Thing> util = new ExcelUtil<Thing>(Thing.class);
+        return util.exportExcel(list, "thing数据");
+    }
 
     /**
-     * 新增【请填写功能名称】
+     * 新增thing
      */
     @GetMapping("/add")
     public String add()
@@ -66,10 +75,10 @@ public class ThingController extends BaseController
     }
 
     /**
-     * 新增保存【请填写功能名称】
+     * 新增保存thing
      */
-
-    @Log(title = "【请填写功能名称】", businessType = BusinessType.INSERT)
+    @RequiresPermissions("system:thing:add")
+    @Log(title = "thing", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(Thing thing)
@@ -78,7 +87,7 @@ public class ThingController extends BaseController
     }
 
     /**
-     * 修改【请填写功能名称】
+     * 修改thing
      */
 
     @GetMapping("/edit/{id}")
@@ -90,10 +99,10 @@ public class ThingController extends BaseController
     }
 
     /**
-     * 修改保存【请填写功能名称】
+     * 修改保存thing
      */
-
-    @Log(title = "【请填写功能名称】", businessType = BusinessType.UPDATE)
+    @RequiresPermissions("system:thing:edit")
+    @Log(title = "thing", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(Thing thing)
@@ -102,10 +111,10 @@ public class ThingController extends BaseController
     }
 
     /**
-     * 删除【请填写功能名称】
+     * 删除thing
      */
-
-    @Log(title = "【请填写功能名称】", businessType = BusinessType.DELETE)
+    @RequiresPermissions("system:thing:remove")
+    @Log(title = "thing", businessType = BusinessType.DELETE)
     @PostMapping( "/remove")
     @ResponseBody
     public AjaxResult remove(String ids)

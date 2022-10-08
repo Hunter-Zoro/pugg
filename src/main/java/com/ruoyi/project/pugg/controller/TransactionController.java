@@ -31,7 +31,7 @@ import com.ruoyi.framework.web.page.TableDataInfo;
 @RequestMapping("/pugg/transaction")
 public class TransactionController extends BaseController
 {
-    private String prefix = "pugg";
+    private String prefix = "pugg/transaction";
 
     @Autowired
     private ITransactionService transactionService;

@@ -8,10 +8,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="id"    column="id"    />
         <result property="thingName"    column="thing_name"    />
         <result property="thingBlock"    column="thing_block"    />
+        <result property="thingImg"    column="thing_img"    />
+        <result property="thingPrice"    column="thing_price"    />
     </resultMap>
 
     <sql id="selectThingVo">
-        select id, thing_name, thing_block from thing
+        select id, thing_name, thing_block, thing_img, thing_price from thing
     </sql>
 
     <select id="selectThingList" parameterType="Thing" resultMap="ThingResult">
@@ -31,21 +33,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into thing
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
-            <if test="thingName != null">thing_name,</if>
-            <if test="thingBlock != null">thing_block,</if>
+            <if test="thingName != null and thingName != ''">thing_name,</if>
+            <if test="thingBlock != null and thingBlock != ''">thing_block,</if>
+            <if test="thingImg != null and thingImg != ''">thing_img,</if>
+            <if test="thingPrice != null and thingPrice != ''">thing_price,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">#{id},</if>
-            <if test="thingName != null">#{thingName},</if>
-            <if test="thingBlock != null">#{thingBlock},</if>
+            <if test="thingName != null and thingName != ''">#{thingName},</if>
+            <if test="thingBlock != null and thingBlock != ''">#{thingBlock},</if>
+            <if test="thingImg != null and thingImg != ''">#{thingImg},</if>
+            <if test="thingPrice != null and thingPrice != ''">#{thingPrice},</if>
          </trim>
     </insert>
 
     <update id="updateThing" parameterType="Thing">
         update thing
         <trim prefix="SET" suffixOverrides=",">
-            <if test="thingName != null">thing_name = #{thingName},</if>
-            <if test="thingBlock != null">thing_block = #{thingBlock},</if>
+            <if test="thingName != null and thingName != ''">thing_name = #{thingName},</if>
+            <if test="thingBlock != null and thingBlock != ''">thing_block = #{thingBlock},</if>
+            <if test="thingImg != null and thingImg != ''">thing_img = #{thingImg},</if>
+            <if test="thingPrice != null and thingPrice != ''">thing_price = #{thingPrice},</if>
         </trim>
         where id = #{id}
     </update>
